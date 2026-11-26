@@ -4,81 +4,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TALEEM AI</title>
+<title>TALEEM AI - Class 9</title>
 <style>
-body{margin:0;font-family:Arial;background:#f2f5fa;color:#183153}
-header{background:#123c69;color:white;padding:25px 15px;text-align:center}
-main{padding:18px}
-h2{margin-top:25px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.card{background:white;padding:18px;border-radius:13px;text-align:center;box-shadow:0 2px 8px #ddd}
-button{background:#1769aa;color:white;border:0;padding:12px;border-radius:8px;width:100%;font-size:15px}
-select{width:100%;padding:14px;border:1px solid #ccc;border-radius:8px;font-size:16px;background:white}
-#subjects{display:none;margin-top:20px}
-.subject{background:white;padding:15px;margin:9px 0;border-radius:10px}
-footer{text-align:center;padding:25px;color:#667}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f2f5fa;color:#17365d}
+header{background:#123c69;color:white;padding:24px 15px;text-align:center}
+main{padding:18px;max-width:650px;margin:auto}
+.card{background:white;padding:18px;margin:14px 0;border-radius:14px;box-shadow:0 2px 9px #ddd}
+h2{color:#123c69}
+select,button{width:100%;padding:13px;border-radius:8px;font-size:16px}
+select{border:1px solid #bbb;background:white}
+button{border:0;background:#1769aa;color:white;margin-top:10px}
+.subject{background:white;padding:16px;margin:10px 0;border-radius:10px;border:1px solid #ddd}
+.subject button{width:auto;padding:9px 15px}
+.hidden{display:none}
+a{color:#1769aa}
 </style>
 </head>
 <body>
 <header>
 <h1>📚 TALEEM AI</h1>
-<p>Your Smart Learning Partner</p>
-<small>Punjab Board | Pakistan</small>
+<p>Punjab Board | Class 9</p>
 </header>
+
 <main>
-<h2>Welcome, Student!</h2>
-<p>Choose your class to start learning.</p>
+<div class="card">
+<h2>Welcome Student!</h2>
+<p>Your Class 9 learning journey starts here.</p>
+<label>Select Subject</label>
+<select id="subject">
+<option value="">Choose a subject</option>
+<option>English</option>
+<option>Urdu</option>
+<option>Mathematics</option>
+<option>Physics</option>
+<option>Chemistry</option>
+<option>Biology</option>
+<option>Computer Science</option>
+<option>Islamiat</option>
+<option>Tarjuma-tul-Quran</option>
+</select>
+<button onclick="openSubject()">Open Subject</button>
+</div>
+
+<div id="details" class="card hidden">
+<h2 id="subjectTitle"></h2>
+<h3>Learning Options</h3>
+<div id="chapters"></div>
+</div>
 
 <div class="card">
-<h3>Select Your Class</h3>
-<select id="classSelect">
-<option value="">Choose Class</option>
-</select>
-<br><br>
-<button onclick="showSubjects()">Continue</button>
+<h2>📖 Official Textbooks</h2>
+<p>Find Punjab Board textbooks from the official authority.</p>
+<a href="https://pectaa.edu.pk/books-and-publications/" target="_blank">
+Open Official PECTAA Books
+</a>
 </div>
 
-<div id="subjects">
-<h2 id="classTitle"></h2>
-<h3>Available Subjects</h3>
-<div id="subjectList"></div>
-</div>
-
-<h2>Learning Tools</h2>
-<div class="grid">
-<div class="card">📖<p>Textbooks</p></div>
-<div class="card">🤖<p>AI Assistant</p></div>
-<div class="card">📝<p>MCQs & Tests</p></div>
-<div class="card">⭐<p>Important Questions</p></div>
+<div class="card">
+<h2>⭐ Study Tools</h2>
+<p>Chapter explanations, important questions and MCQ practice will be added next.</p>
 </div>
 </main>
-<footer>TALEEM AI © 2026</footer>
 
 <script>
-const select=document.getElementById("classSelect");
-for(let i=1;i<=12;i++){
-let option=document.createElement("option");
-option.value=i;
-option.textContent="Class "+i;
-select.appendChild(option);
+function openSubject(){
+const subject=document.getElementById("subject").value;
+if(!subject){
+alert("Please select a subject");
+return;
 }
-
-function showSubjects(){
-const cls=select.value;
-if(!cls){alert("Please select your class!");return;}
-
-document.getElementById("classTitle").textContent="Class "+cls;
-const subjects=cls<=5?
-["English","Urdu","Mathematics","General Science","General Knowledge","Islamiat"]:
-["English","Urdu","Mathematics","Science","Islamiat","Pakistan Studies"];
-
-document.getElementById("subjectList").innerHTML=
-subjects.map(s=>'<div class="subject">📘 '+s+'</div>').join("");
-
-document.getElementById("subjects").style.display="block";
+document.getElementById("subjectTitle").textContent=subject;
+document.getElementById("chapters").innerHTML=
+"<p>Choose what you want to study:</p>"+
+"<button onclick='showMessage(\"Textbook reading\")'>Read Textbook</button>"+
+"<button onclick='showMessage(\"Easy explanation\")'>Easy Explanation</button>"+
+"<button onclick='showMessage(\"MCQ practice\")'>Practice MCQs</button>"+
+"<button onclick='showMessage(\"Important questions\")'>Important Questions</button>";
+document.getElementById("details").classList.remove("hidden");
+}
+function showMessage(topic){
+alert(topic+" section will be developed next!");
 }
 </script>
 </body>
 </html>
-
 
