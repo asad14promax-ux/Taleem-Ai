@@ -4,88 +4,171 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TALEEM AI - Class 9</title>
+<title>TALEEM AI - Physics Chapter 1</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f2f5fa;color:#17365d}
-header{background:#123c69;color:white;padding:24px 15px;text-align:center}
-main{padding:18px;max-width:650px;margin:auto}
-.card{background:white;padding:18px;margin:14px 0;border-radius:14px;box-shadow:0 2px 9px #ddd}
+body{margin:0;font-family:Arial;background:#f1f5fa;color:#193451}
+header{background:#123c69;color:white;padding:22px;text-align:center}
+main{max-width:650px;margin:auto;padding:16px}
+.card{background:white;padding:18px;margin:14px 0;border-radius:13px;box-shadow:0 2px 8px #ddd}
+button{background:#1769aa;color:white;border:0;padding:12px;border-radius:8px;margin:5px 0;width:100%;font-size:15px}
+.topic{text-align:left;background:#eaf2fc;color:#17365d}
 h2{color:#123c69}
-select,button{width:100%;padding:13px;border-radius:8px;font-size:16px}
-select{border:1px solid #bbb;background:white}
-button{border:0;background:#1769aa;color:white;margin-top:10px}
-.subject{background:white;padding:16px;margin:10px 0;border-radius:10px;border:1px solid #ddd}
-.subject button{width:auto;padding:9px 15px}
+.urdu{direction:rtl;text-align:right;font-size:19px;line-height:2}
 .hidden{display:none}
+.option{background:#eaf2fc;color:#17365d;text-align:left}
 a{color:#1769aa}
 </style>
 </head>
 <body>
+
 <header>
 <h1>📚 TALEEM AI</h1>
-<p>Punjab Board | Class 9</p>
+<p>Class 9 | Punjab Board</p>
 </header>
 
 <main>
-<div class="card">
-<h2>Welcome Student!</h2>
-<p>Your Class 9 learning journey starts here.</p>
-<label>Select Subject</label>
-<select id="subject">
-<option value="">Choose a subject</option>
-<option>English</option>
-<option>Urdu</option>
-<option>Mathematics</option>
-<option>Physics</option>
-<option>Chemistry</option>
-<option>Biology</option>
-<option>Computer Science</option>
-<option>Islamiat</option>
-<option>Tarjuma-tul-Quran</option>
-</select>
-<button onclick="openSubject()">Open Subject</button>
-</div>
-
-<div id="details" class="card hidden">
-<h2 id="subjectTitle"></h2>
-<h3>Learning Options</h3>
-<div id="chapters"></div>
-</div>
 
 <div class="card">
-<h2>📖 Official Textbooks</h2>
-<p>Find Punjab Board textbooks from the official authority.</p>
+<h2>Physics - Chapter 1</h2>
+<h3>Physical Quantities and Measurements</h3>
+<p>طبعی مقداریں اور پیمائش</p>
+<p>اپنا موضوع منتخب کریں اور آسان اردو میں سیکھیں۔</p>
 <a href="https://pectaa.edu.pk/books-and-publications/" target="_blank">
-Open Official PECTAA Books
+📖 Official Textbooks
 </a>
 </div>
 
 <div class="card">
-<h2>⭐ Study Tools</h2>
-<p>Chapter explanations, important questions and MCQ practice will be added next.</p>
+<h2>Chapter Topics</h2>
+<div id="topicButtons"></div>
 </div>
+
+<div id="lesson" class="card hidden">
+<h2 id="lessonTitle"></h2>
+<div id="lessonText" class="urdu"></div>
+</div>
+
+<div class="card">
+<h2>📝 Practice MCQs</h2>
+<div id="quiz"></div>
+<button onclick="nextQuestion()">Next MCQ</button>
+<p id="score"></p>
+</div>
+
+<div class="card">
+<h2>⭐ Short Questions</h2>
+<div id="questions"></div>
+</div>
+
 </main>
 
 <script>
-function openSubject(){
-const subject=document.getElementById("subject").value;
-if(!subject){
-alert("Please select a subject");
-return;
+const topics = [
+{
+title:"1. Scope of Physics",
+text:"طبیعیات سائنس کی وہ شاخ ہے جس میں مادہ، توانائی، حرکت اور ان کے درمیان تعلق کا مطالعہ کیا جاتا ہے۔<br><br>مثال: پنکھے کی حرکت، روشنی اور آواز طبیعیات کے موضوعات ہیں۔"
+},
+{
+title:"2. Physical and Non-Physical Quantities",
+text:"طبعی مقدار وہ ہوتی ہے جسے ناپا جا سکے اور عدد کے ساتھ اکائی میں ظاہر کیا جا سکے۔<br><br>مثال: لمبائی، وقت اور کمیت۔<br><br>غیر طبعی مقدار کو عام پیمائشی آلے سے نہیں ناپا جا سکتا۔ مثال: خوبصورتی اور ایمانداری۔"
+},
+{
+title:"3. Base and Derived Quantities",
+text:"بنیادی مقداریں وہ ہیں جو دوسری مقداروں پر منحصر نہیں ہوتیں۔<br><br>مثال: لمبائی، کمیت اور وقت۔<br><br>اخذ شدہ مقداریں بنیادی مقداروں سے حاصل ہوتی ہیں۔<br><br>مثال: رفتار = فاصلہ ÷ وقت۔"
+},
+{
+title:"4. SI Units",
+text:"SI اکائیوں کا عالمی نظام ہے۔<br><br>لمبائی کی اکائی میٹر (m) ہے۔<br>کمیت کی اکائی کلوگرام (kg) ہے۔<br>وقت کی اکائی سیکنڈ (s) ہے۔<br>درجہ حرارت کی اکائی کیلون (K) ہے۔"
+},
+{
+title:"5. Scientific Notation",
+text:"بہت بڑی یا بہت چھوٹی تعداد کو آسان انداز میں لکھنے کے طریقے کو سائنسی انداز کہتے ہیں۔<br><br>مثال: 300000 کو 3 × 10⁵ لکھ سکتے ہیں۔"
+},
+{
+title:"6. Measuring Instruments",
+text:"مختلف مقداریں ناپنے کے لیے مختلف آلات استعمال ہوتے ہیں۔<br><br>لمبائی کے لیے میٹر رول یا ورنیئر کیلپر، کمیت کے لیے ترازو اور وقت کے لیے گھڑی استعمال ہوتی ہے۔"
+},
+{
+title:"7. Significant Figures",
+text:"کسی پیمائش میں وہ ہندسے جو اس کی درستگی ظاہر کرتے ہیں، اہم ہندسے کہلاتے ہیں۔<br><br>مثال: 2.50 میں تین اہم ہندسے ہیں۔"
+},
+{
+title:"8. Precision and Accuracy",
+text:"درستگی (Accuracy) کا مطلب ہے پیمائش کا اصل قدر کے قریب ہونا۔<br><br>یکسانیت (Precision) کا مطلب ہے بار بار کی گئی پیمائشوں کا ایک دوسرے کے قریب ہونا۔"
 }
-document.getElementById("subjectTitle").textContent=subject;
-document.getElementById("chapters").innerHTML=
-"<p>Choose what you want to study:</p>"+
-"<button onclick='showMessage(\"Textbook reading\")'>Read Textbook</button>"+
-"<button onclick='showMessage(\"Easy explanation\")'>Easy Explanation</button>"+
-"<button onclick='showMessage(\"MCQ practice\")'>Practice MCQs</button>"+
-"<button onclick='showMessage(\"Important questions\")'>Important Questions</button>";
-document.getElementById("details").classList.remove("hidden");
+];
+
+const topicButtons=document.getElementById("topicButtons");
+
+topics.forEach((topic,index)=>{
+const btn=document.createElement("button");
+btn.className="topic";
+btn.textContent=topic.title;
+btn.onclick=()=>openTopic(index);
+topicButtons.appendChild(btn);
+});
+
+function openTopic(index){
+document.getElementById("lessonTitle").textContent=topics[index].title;
+document.getElementById("lessonText").innerHTML=topics[index].text;
+document.getElementById("lesson").classList.remove("hidden");
+document.getElementById("lesson").scrollIntoView({behavior:"smooth"});
 }
-function showMessage(topic){
-alert(topic+" section will be developed next!");
+
+const mcqs=[
+{q:"طبیعیات میں کس چیز کا مطالعہ کیا جاتا ہے؟",o:["صرف پودوں کا","مادہ اور توانائی کا","صرف جانوروں کا","صرف تاریخ کا"],a:1},
+{q:"لمبائی کی SI اکائی کیا ہے؟",o:["کلوگرام","سیکنڈ","میٹر","لیٹر"],a:2},
+{q:"وقت کی بنیادی اکائی کیا ہے؟",o:["منٹ","گھنٹہ","سیکنڈ","دن"],a:2},
+{q:"رفتار کس قسم کی مقدار ہے؟",o:["بنیادی","اخذ شدہ","غیر طبعی","کوئی نہیں"],a:1},
+{q:"کمیت کی SI اکائی کیا ہے؟",o:["میٹر","کلوگرام","سیکنڈ","نیوٹن"],a:1}
+];
+
+let current=0;
+let marks=0;
+let answered=false;
+
+function showQuestion(){
+const q=mcqs[current];
+answered=false;
+document.getElementById("quiz").innerHTML=
+"<h3>"+(current+1)+". "+q.q+"</h3>"+
+q.o.map((option,i)=>
+'<button class="option" onclick="checkAnswer('+i+')">'+option+'</button>'
+).join("");
 }
+
+function checkAnswer(choice){
+if(answered)return;
+answered=true;
+const q=mcqs[current];
+if(choice===q.a){
+marks++;
+document.getElementById("score").textContent="درست جواب! نمبر: "+marks;
+}else{
+document.getElementById("score").textContent="صحیح جواب: "+q.o[q.a]+" | نمبر: "+marks;
+}
+}
+
+function nextQuestion(){
+current=(current+1)%mcqs.length;
+showQuestion();
+}
+
+showQuestion();
+
+const questions=[
+["طبیعیات کیا ہے؟","طبیعیات سائنس کی وہ شاخ ہے جس میں مادہ، توانائی اور ان کے تعلق کا مطالعہ کیا جاتا ہے۔"],
+["طبعی مقدار کسے کہتے ہیں؟","ایسی مقدار جسے ناپا جا سکے اور عدد اور اکائی میں ظاہر کیا جا سکے۔"],
+["بنیادی مقداریں کیا ہیں؟","وہ مقداریں جو دوسری مقداروں پر منحصر نہیں ہوتیں، بنیادی مقداریں کہلاتی ہیں۔"],
+["SI نظام کیا ہے؟","پیمائش کی بین الاقوامی طور پر تسلیم شدہ اکائیوں کا نظام SI کہلاتا ہے۔"],
+["اخذ شدہ مقدار کی مثال دیں۔","رفتار ایک اخذ شدہ مقدار ہے کیونکہ یہ فاصلے اور وقت سے حاصل ہوتی ہے۔"]
+];
+
+document.getElementById("questions").innerHTML=
+questions.map((q,i)=>
+'<details><summary>'+ (i+1)+'. '+q[0]+'</summary><p class="urdu">'+q[1]+'</p></details>'
+).join("<hr>");
+
 </script>
 </body>
 </html>
