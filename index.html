@@ -1,65 +1,353 @@
 
-const physicsMCQs = [
-{
-q:"What is a physical quantity?",
-ur:"طبعی مقدار کسے کہتے ہیں؟",
-a:[
-"A measurable quantity — قابلِ پیمائش مقدار",
-"Colour — رنگ",
-"Feeling — احساس",
-"Sound — آواز"
-],
-correct:0
-},
-{
-q:"What is the SI unit of length?",
-ur:"لمبائی کی ایس آئی اکائی کیا ہے؟",
-a:[
-"Kilogram — کلوگرام",
-"Metre — میٹر",
-"Second — سیکنڈ",
-"Ampere — ایمپیئر"
-],
-correct:1
-},
-{
-q:"Which instrument is used to measure time?",
-ur:"وقت ناپنے کے لیے کون سا آلہ استعمال ہوتا ہے؟",
-a:[
-"Stopwatch — اسٹاپ واچ",
-"Balance — ترازو",
-"Ruler — فٹہ",
-"Thermometer — تھرمامیٹر"
-],
-correct:0
-}
-];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TALEEM AI - Class 9</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f2f5fa;color:#17243a;font-family:Arial,sans-serif}
+header{background:#153b70;color:white;text-align:center;padding:24px 12px}
+header h1{margin:0;font-size:30px}
+main{max-width:900px;margin:auto;padding:14px}
+.card{background:white;border-radius:13px;padding:17px;margin:12px 0;box-shadow:0 2px 10px #0001}
+button{border:0;border-radius:9px;background:#1765b5;color:white;padding:12px 15px;margin:5px;cursor:pointer;font-size:15px}
+.back{background:#e6edf7;color:#153b70}
+.chapter{display:block;width:100%;text-align:left;background:#edf3fb;color:#153b70;margin:7px 0}
+select,input,textarea{width:100%;padding:12px;border:1px solid #ccd5e2;border-radius:9px;font-size:16px;margin:8px 0}
+.hidden{display:none}
+.urdu{direction:rtl;text-align:right;line-height:2;font-size:18px}
+.small{font-size:13px;color:#667085}
+iframe{width:100%;height:65vh;border:0;border-radius:8px}
+.option{display:block;background:#f1f4f9;padding:10px;margin:6px 0;border-radius:8px}
+footer{text-align:center;padding:25px;color:#667085}
+</style>
+</head>
+<body>
 
-function loadMCQ(){
+<header>
+<h1>TALEEM AI</h1>
+<p>Class 9 | Punjab Board</p>
+<p>Learn • Read • Understand • Practice</p>
+</header>
+
+<main>
+
+<section id="home">
+<div class="card">
+<h2>Welcome to TALEEM AI</h2>
+<p>Select your subject and medium.</p>
+<select id="subject"></select>
+<button onclick="openSubject()">Open Subject</button>
+</div>
+
+<div class="card">
+<h2>My Learning Tools</h2>
+<p>Original Books • Urdu Explanation • MCQs • Questions • Study Assistant</p>
+</div>
+</section>
+
+<section id="subjectPage" class="hidden">
+<div class="card">
+<button class="back" onclick="home()">← Back</button>
+<h2 id="subjectName"></h2>
+<p>Choose a chapter or open the complete textbook.</p>
+<button onclick="openBook()">Read Complete Textbook PDF</button>
+<div id="chapterList"></div>
+</div>
+</section>
+
+<section id="chapterPage" class="hidden">
+<div class="card">
+<button class="back" onclick="backSubjects()">← Back to Chapters</button>
+<h2 id="chapterName"></h2>
+<button onclick="show('book')">Textbook</button>
+<button onclick="show('lesson')">Urdu Explanation</button>
+<button onclick="show('mcq')">MCQs</button>
+<button onclick="show('short')">Short Questions</button>
+<button onclick="show('long')">Long Questions</button>
+<button onclick="show('assistant')">Study Assistant</button>
+</div>
+
+<div class="card hidden" id="book">
+<h2>Original Textbook</h2>
+<p>Apni official textbook yahan par parhein.</p>
+<div id="pdfArea"></div>
+<button onclick="openBook()">Open PDF in New Tab</button>
+</div>
+
+<div class="card hidden" id="lesson">
+<h2>Easy Urdu Explanation</h2>
+<div class="urdu">
+<p>اس باب کی آسان اردو میں وضاحت یہاں فراہم کی جائے گی۔</p>
+<p>اہم تعریفیں، مثالیں اور مشکل الفاظ آسان انداز میں سمجھائے جائیں گے۔</p>
+<p>مکمل سبق شامل کرنے کے لیے متعلقہ باب کا تصدیق شدہ مواد درکار ہوگا۔</p>
+</div>
+</div>
+
+<div class="card hidden" id="mcq">
+<h2>MCQs - English + Urdu</h2>
+<div id="mcqArea"></div>
+</div>
+
+<div class="card hidden" id="short">
+<h2>Short Questions</h2>
+<div class="urdu">
+<p>اس باب کے مختصر سوالات اور جوابات یہاں شامل ہوں گے۔</p>
+<p>جوابات آسان اردو میں تیار کیے جائیں گے۔</p>
+</div>
+</div>
+
+<div class="card hidden" id="long">
+<h2>Long Questions</h2>
+<div class="urdu">
+<p>اس باب کے تفصیلی سوالات اور جوابات یہاں شامل ہوں گے۔</p>
+<p>ہر جواب کو مناسب عنوانات کے ساتھ ترتیب دیا جائے گا۔</p>
+</div>
+</div>
+
+<div class="card hidden" id="assistant">
+<h2>Study Assistant</h2>
+<p>Apna sawal likhein:</p>
+<textarea id="studentQuestion" rows="4" placeholder="Write your question..."></textarea>
+<button onclick="ask()">Submit Question</button>
+<div id="answer" class="urdu"></div>
+<p class="small">Real AI answers ke liye secure AI connection abhi connect karna baqi hai.</p>
+</div>
+
+</section>
+</main>
+
+<footer>TALEEM AI | Class 9 Learning Platform</footer>
+
+<script>
+const books = {
+"English (2025-26)":{
+url:"https://drive.google.com/file/d/1mWBO-wzXqv0Oq9oazcjM-Y16EqmPqBtj/preview",
+chapters:12
+},
+"Urdu (2025-26)":{
+url:"https://drive.google.com/file/d/1JPgnI_hL6D0EMPG36IdjcqB2OFBHLp52/preview",
+chapters:12
+},
+"Mathematics English Medium":{
+url:"https://drive.google.com/file/d/1IHxM96F221JY3uL4jEIRWQ8NxskXyilF/preview",
+chapters:14
+},
+"Mathematics Urdu Medium":{
+url:"https://drive.google.com/file/d/1IHxM96F221JY3uL4jEIRWQ8NxskXyilF/preview",
+chapters:14
+},
+"Physics English Medium":{
+url:"https://drive.google.com/file/d/14TEL4poDp5vvAP7JZ3dYXJ4U_9fPexm3/preview",
+chapters:9
+},
+"Chemistry English Medium":{
+url:"https://drive.google.com/file/d/1OY1Unpm8VkLCGQfbLFrE8wLn3fzXmZpc/preview",
+chapters:13
+},
+"Computer Science English Medium":{
+url:"https://drive.google.com/file/d/1K9AWmNIjYFUNWE_F8JkELmlEkZO9Ms85/preview",
+chapters:12
+},
+"Biology English Medium":{
+url:"https://drive.google.com/file/d/1rH5qC3FM12nPcH1zIVbm25tMKWxMv-3P/preview",
+chapters:11
+},
+"Biology Urdu Medium":{
+url:"https://drive.google.com/file/d/1rH5qC3FM12nPcH1zIVbm25tMKWxMv-3P/preview",
+chapters:11
+},
+"Physics Urdu Medium":{
+url:"https://drive.google.com/file/d/14TEL4poDp5vvAP7JZ3dYXJ4U_9fPexm3/preview",
+chapters:9
+},
+"Chemistry Urdu Medium":{
+url:"https://drive.google.com/file/d/1OY1Unpm8VkLCGQfbLFrE8wLn3fzXmZpc/preview",
+chapters:13
+},
+"Islamiat":{
+url:"https://drive.google.com/file/d/1kiaCqhXsXuuZ7HAAuXYfjl4_WaBf-ARS/preview",
+chapters:12
+},
+"Tarjuma-tul-Quran":{
+url:"https://drive.google.com/file/d/157EhLaNBr6h1XNrF6k2mflsdui9RfYaU/preview",
+chapters:10
+}
+};
+
+const subject=document.getElementById("subject");
+Object.keys(books).forEach(name=>{
+let op=document.createElement("option");
+op.value=name;
+op.textContent=name;
+subject.appendChild(op);
+});
+
+let current="";
+let chapter=1;
+
+function hidePages(){
+["home","subjectPage","chapterPage"].forEach(id=>{
+document.getElementById(id).classList.add("hidden");
+});
+}
+
+function home(){
+hidePages();
+document.getElementById("home").classList.remove("hidden");
+}
+
+function openSubject(){
+current=subject.value;
+document.getElementById("subjectName").textContent=current;
+let list=document.getElementById("chapterList");
+list.innerHTML="";
+
+for(let i=1;i<=books[current].chapters;i++){
+let b=document.createElement("button");
+b.className="chapter";
+b.textContent="Chapter "+i;
+b.onclick=()=>openChapter(i);
+list.appendChild(b);
+}
+
+hidePages();
+document.getElementById("subjectPage").classList.remove("hidden");
+}
+
+function backSubjects(){
+hidePages();
+document.getElementById("subjectPage").classList.remove("hidden");
+}
+
+function openBook(){
+let url=books[current].url;
+window.open(url,"_blank");
+}
+
+function openChapter(number){
+chapter=number;
+document.getElementById("chapterName").textContent=current+" - Chapter "+number;
+document.getElementById("pdfArea").innerHTML=
+'<iframe src="'+books[current].url+'" title="Official textbook PDF"></iframe>';
+
+hidePages();
+document.getElementById("chapterPage").classList.remove("hidden");
+show("book");
+loadMCQs();
+}
+
+function show(id){
+["book","lesson","mcq","short","long","assistant"].forEach(x=>{
+document.getElementById(x).classList.add("hidden");
+});
+document.getElementById(id).classList.remove("hidden");
+}
+
+const questions={
+"Physics English Medium":[
+{q:"What is a physical quantity?",u:"طبعی مقدار کسے کہتے ہیں؟",a:["A measurable quantity — قابلِ پیمائش مقدار","Colour — رنگ","Feeling — احساس","Sound — آواز"],c:0},
+{q:"What is the SI unit of length?",u:"لمبائی کی ایس آئی اکائی کیا ہے؟",a:["Kilogram — کلوگرام","Metre — میٹر","Second — سیکنڈ","Ampere — ایمپیئر"],c:1},
+{q:"Which instrument measures time?",u:"وقت ناپنے کا آلہ کون سا ہے؟",a:["Stopwatch — اسٹاپ واچ","Balance — ترازو","Ruler — فٹہ","Thermometer — تھرمامیٹر"],c:0}
+],
+"Physics Urdu Medium":[
+{q:"What is a physical quantity?",u:"طبعی مقدار کسے کہتے ہیں؟",a:["A measurable quantity — قابلِ پیمائش مقدار","Colour — رنگ","Feeling — احساس","Sound — آواز"],c:0},
+{q:"What is the SI unit of length?",u:"لمبائی کی ایس آئی اکائی کیا ہے؟",a:["Kilogram — کلوگرام","Metre — میٹر","Second — سیکنڈ","Ampere — ایمپیئر"],c:1}
+],
+"Chemistry English Medium":[
+{q:"What is the smallest unit of an element?",u:"عنصر کی سب سے چھوٹی اکائی کیا ہے؟",a:["Atom — ایٹم","Cell — خلیہ","Mixture — آمیزہ","Compound — مرکب"],c:0},
+{q:"What is the chemical symbol of Oxygen?",u:"آکسیجن کی کیمیائی علامت کیا ہے؟",a:["O","H","N","C"],c:0}
+],
+"Biology English Medium":[
+{q:"What is the basic unit of life?",u:"زندگی کی بنیادی اکائی کیا ہے؟",a:["Cell — خلیہ","Atom — ایٹم","Organ — عضو","Tissue — بافت"],c:0}
+],
+"Biology Urdu Medium":[
+{q:"What is the basic unit of life?",u:"زندگی کی بنیادی اکائی کیا ہے؟",a:["Cell — خلیہ","Atom — ایٹم","Organ — عضو","Tissue — بافت"],c:0}
+],
+"Mathematics English Medium":[
+{q:"What is the square of 5?",u:"5 کا مربع کیا ہے؟",a:["10","15","25","20"],c:2}
+],
+"Mathematics Urdu Medium":[
+{q:"What is the square of 5?",u:"5 کا مربع کیا ہے؟",a:["10","15","25","20"],c:2}
+],
+"Computer Science English Medium":[
+{q:"What does CPU stand for?",u:"CPU کا مکمل نام کیا ہے؟",a:["Central Processing Unit","Computer Personal Unit","Central Program Utility","Control Power Unit"],c:0}
+],
+"English (2025-26)":[
+{q:"What is the plural of Child?",u:"Child کی جمع کیا ہے؟",a:["Childs","Children","Childes","Childrens"],c:1}
+],
+"Urdu (2025-26)":[
+{q:"لفظ کتاب کی جمع کیا ہے؟",u:"لفظ کتاب کی جمع کیا ہے؟",a:["کتابیں","قلم","درخت","گھر"],c:0}
+],
+"Islamiat":[
+{q:"How many pillars of Islam are there?",u:"اسلام کے کتنے ارکان ہیں؟",a:["Three — تین","Four — چار","Five — پانچ","Six — چھ"],c:2}
+],
+"Tarjuma-tul-Quran":[
+{q:"What is the meaning of Alhamdulillah?",u:"الحمدللہ کا مطلب کیا ہے؟",a:["All praise is for Allah — تمام تعریفیں اللہ کے لیے ہیں","Allah is Great — اللہ سب سے بڑا ہے","Allah is Pure — اللہ پاک ہے","Allah is Forgiving — اللہ معاف کرنے والا ہے"],c:0}
+]
+};
+
+function loadMCQs(){
 let area=document.getElementById("mcqArea");
 area.innerHTML="";
+let data=questions[current];
 
-if(currentSubject==="Physics" && currentChapter.includes("Physical Quantities")){
-physicsMCQs.forEach((item,index)=>{
+if(!data){
+area.textContent="Is subject ke verified MCQs abhi add nahi hue.";
+return;
+}
+
+data.forEach((item,index)=>{
 let div=document.createElement("div");
 div.className="card";
-let html="<p><b>Q"+(index+1)+". "+item.q+"</b></p>";
-html+="<p class='urdu'>"+item.ur+"</p>";
+let html="<h3>Q"+(index+1)+". "+item.q+"</h3>";
+html+="<p class='urdu'>"+item.u+"</p>";
 
-item.a.forEach((answer,i)=>{
-html+='<label><input type="radio" name="q'+index+'" value="'+i+'" style="width:auto">'+answer+'</label><br>';
+item.a.forEach((option,i)=>{
+html+='<label class="option"><input type="radio" name="q'+index+'" value="'+i+'" style="width:auto"> '+option+'</label>';
 });
 
 div.innerHTML=html;
 area.appendChild(div);
 });
 
-let check=document.createElement("button");
-check.textContent="Check Answers / Jawabat Check Karein";
-check.onclick=checkMCQ;
-area.appendChild(check);
-}else{
-area.innerHTML="<p>English and Urdu MCQs will be added for this chapter.</p>";
+let btn=document.createElement("button");
+btn.textContent="Check Answers";
+btn.onclick=checkAnswers;
+area.appendChild(btn);
 }
+
+function checkAnswers(){
+let data=questions[current];
+if(!data)return;
+let score=0;
+
+data.forEach((item,index)=>{
+let selected=document.querySelector('input[name="q'+index+'"]:checked');
+if(selected && Number(selected.value)===item.c)score++;
+});
+
+document.getElementById("mcqArea").innerHTML=
+"<h2>Your Score: "+score+" / "+data.length+"</h2>"+
+"<p class='urdu'>آپ کے نمبر: "+score+" / "+data.length+"</p>"+
+"<button onclick='loadMCQs()'>Try Again / دوبارہ کوشش کریں</button>";
 }
+
+function ask(){
+let q=document.getElementById("studentQuestion").value.trim();
+let answer=document.getElementById("answer");
+
+if(!q){
+answer.textContent="براہِ کرم اپنا سوال لکھیں۔";
+return;
+}
+
+answer.textContent="آپ کا سوال درج ہوگیا ہے۔ حقیقی AI جواب کے لیے محفوظ AI سروس منسلک کرنا باقی ہے۔";
+}
+</script>
+
+</body>
+</html>
 
