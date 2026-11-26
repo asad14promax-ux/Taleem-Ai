@@ -1,43 +1,84 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TALEEM AI</title>
 <style>
-body{margin:0;font-family:Arial;background:#f1f5fb;color:#17365d}
-header{background:#123c69;color:white;padding:25px;text-align:center}
+body{margin:0;font-family:Arial;background:#f2f5fa;color:#183153}
+header{background:#123c69;color:white;padding:25px 15px;text-align:center}
 main{padding:18px}
-.card{background:white;padding:20px;margin:14px 0;border-radius:14px}
-button{background:#1769aa;color:white;border:0;padding:12px;border-radius:8px}
+h2{margin-top:25px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:white;padding:18px;border-radius:13px;text-align:center;box-shadow:0 2px 8px #ddd}
+button{background:#1769aa;color:white;border:0;padding:12px;border-radius:8px;width:100%;font-size:15px}
+select{width:100%;padding:14px;border:1px solid #ccc;border-radius:8px;font-size:16px;background:white}
+#subjects{display:none;margin-top:20px}
+.subject{background:white;padding:15px;margin:9px 0;border-radius:10px}
+footer{text-align:center;padding:25px;color:#667}
 </style>
 </head>
 <body>
 <header>
-<h1>TALEEM AI</h1>
+<h1>📚 TALEEM AI</h1>
 <p>Your Smart Learning Partner</p>
+<small>Punjab Board | Pakistan</small>
 </header>
 <main>
+<h2>Welcome, Student!</h2>
+<p>Choose your class to start learning.</p>
+
 <div class="card">
-<h2>Welcome Student!</h2>
-<p>Your learning journey starts here.</p>
+<h3>Select Your Class</h3>
+<select id="classSelect">
+<option value="">Choose Class</option>
+</select>
+<br><br>
+<button onclick="showSubjects()">Continue</button>
 </div>
-<div class="card">
-<h3>📚 School Classes</h3>
-<p>Explore classes 1 to 12.</p>
-<button>Explore Classes</button>
+
+<div id="subjects">
+<h2 id="classTitle"></h2>
+<h3>Available Subjects</h3>
+<div id="subjectList"></div>
 </div>
-<div class="card">
-<h3>🤖 AI Study Assistant</h3>
-<p>Ask questions and learn easily.</p>
-<button>Ask AI</button>
-</div>
-<div class="card">
-<h3>📝 MCQs & Tests</h3>
-<p>Practice important questions.</p>
-<button>Start Practice</button>
+
+<h2>Learning Tools</h2>
+<div class="grid">
+<div class="card">📖<p>Textbooks</p></div>
+<div class="card">🤖<p>AI Assistant</p></div>
+<div class="card">📝<p>MCQs & Tests</p></div>
+<div class="card">⭐<p>Important Questions</p></div>
 </div>
 </main>
+<footer>TALEEM AI © 2026</footer>
+
+<script>
+const select=document.getElementById("classSelect");
+for(let i=1;i<=12;i++){
+let option=document.createElement("option");
+option.value=i;
+option.textContent="Class "+i;
+select.appendChild(option);
+}
+
+function showSubjects(){
+const cls=select.value;
+if(!cls){alert("Please select your class!");return;}
+
+document.getElementById("classTitle").textContent="Class "+cls;
+const subjects=cls<=5?
+["English","Urdu","Mathematics","General Science","General Knowledge","Islamiat"]:
+["English","Urdu","Mathematics","Science","Islamiat","Pakistan Studies"];
+
+document.getElementById("subjectList").innerHTML=
+subjects.map(s=>'<div class="subject">📘 '+s+'</div>').join("");
+
+document.getElementById("subjects").style.display="block";
+}
+</script>
 </body>
 </html>
+
 
