@@ -3,173 +3,301 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TALEEM AI - Physics Chapter 1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TALEEM AI - Class 9</title>
 <style>
-body{margin:0;font-family:Arial;background:#f1f5fa;color:#193451}
-header{background:#123c69;color:white;padding:22px;text-align:center}
-main{max-width:650px;margin:auto;padding:16px}
-.card{background:white;padding:18px;margin:14px 0;border-radius:13px;box-shadow:0 2px 8px #ddd}
-button{background:#1769aa;color:white;border:0;padding:12px;border-radius:8px;margin:5px 0;width:100%;font-size:15px}
-.topic{text-align:left;background:#eaf2fc;color:#17365d}
-h2{color:#123c69}
-.urdu{direction:rtl;text-align:right;font-size:19px;line-height:2}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fb;color:#172033}
+header{background:#173b70;color:white;padding:24px 16px;text-align:center}
+header h1{margin:0;font-size:28px}
+header p{margin:8px 0 0}
+main{max-width:850px;margin:auto;padding:16px}
+.card{background:white;padding:17px;margin:12px 0;border-radius:13px;box-shadow:0 2px 9px #00000010}
+h2{font-size:20px}
+button,.btn{border:0;border-radius:9px;padding:12px 15px;background:#1765b5;color:white;font-size:15px;margin:5px;cursor:pointer}
+button.secondary{background:#e8eff8;color:#173b70}
+button:disabled{opacity:.5}
+select,input{width:100%;padding:13px;border:1px solid #ccd5e2;border-radius:9px;font-size:16px;margin:8px 0}
+.chapter{display:block;width:100%;text-align:left;background:#edf3fb;color:#173b70;margin:7px 0}
 .hidden{display:none}
-.option{background:#eaf2fc;color:#17365d;text-align:left}
-a{color:#1769aa}
+.urdu{direction:rtl;text-align:right;line-height:2;font-size:18px}
+.small{color:#667085;font-size:13px}
+footer{text-align:center;padding:25px;color:#667085}
 </style>
 </head>
 <body>
 
 <header>
-<h1>📚 TALEEM AI</h1>
+<h1>TALEEM AI</h1>
 <p>Class 9 | Punjab Board</p>
+<p>Learn • Understand • Practice • Improve</p>
 </header>
 
 <main>
 
+<section id="home">
 <div class="card">
-<h2>Physics - Chapter 1</h2>
-<h3>Physical Quantities and Measurements</h3>
-<p>طبعی مقداریں اور پیمائش</p>
-<p>اپنا موضوع منتخب کریں اور آسان اردو میں سیکھیں۔</p>
+<h2>Welcome Student!</h2>
+<p>Select your subject to start learning.</p>
+<label for="subject">Choose Subject</label>
+<select id="subject"></select>
+<button onclick="openSubject()">Open Subject</button>
+</div>
+
+<div class="card">
+<h2>All Class 9 Books</h2>
+<p>Official Punjab textbook collection:</p>
 <a href="https://pectaa.edu.pk/books-and-publications/" target="_blank">
-📖 Official Textbooks
+<button>Open Official Books</button>
+</a>
+<p class="small">Books are provided through the official PECTAA website.</p>
+</div>
+</section>
+
+<section id="subjectPage" class="hidden">
+<div class="card">
+<button class="secondary" onclick="goHome()">← Back to Subjects</button>
+<h2 id="subjectTitle"></h2>
+<p>Select a chapter below.</p>
+<div id="chapterList"></div>
+</div>
+</section>
+
+<section id="chapterPage" class="hidden">
+<div class="card">
+<button class="secondary" onclick="goSubject()">← Back to Chapters</button>
+<h2 id="chapterTitle"></h2>
+<p>Choose what you want to study.</p>
+<button onclick="showSection('book')">Read Book</button>
+<button onclick="showSection('lesson')">Easy Explanation</button>
+<button onclick="showSection('mcq')">Practice MCQs</button>
+<button onclick="showSection('questions')">Important Questions</button>
+<button onclick="showSection('assistant')">Study Assistant</button>
+</div>
+
+<div class="card" id="book">
+<h2>Textbook</h2>
+<p>Open the official Punjab Board textbook collection.</p>
+<a href="https://pectaa.edu.pk/books-and-publications/" target="_blank">
+<button>Open Official Textbooks</button>
 </a>
 </div>
 
-<div class="card">
-<h2>Chapter Topics</h2>
-<div id="topicButtons"></div>
+<div class="card hidden" id="lesson">
+<h2>Easy Explanation</h2>
+<div class="urdu">
+<p>یہ حصہ مشکل موضوعات کو آسان اردو میں سمجھانے کے لیے بنایا گیا ہے۔</p>
+<p>ہر باب کی مکمل وضاحت، مثالیں اور اہم تعریفیں تصدیق شدہ کتابی مواد کے مطابق شامل کی جائیں گی۔</p>
+</div>
+<p class="small">Lesson content is being added chapter by chapter.</p>
 </div>
 
-<div id="lesson" class="card hidden">
-<h2 id="lessonTitle"></h2>
-<div id="lessonText" class="urdu"></div>
+<div class="card hidden" id="mcq">
+<h2>Practice MCQs</h2>
+<div id="mcqArea"></div>
 </div>
 
-<div class="card">
-<h2>📝 Practice MCQs</h2>
-<div id="quiz"></div>
-<button onclick="nextQuestion()">Next MCQ</button>
-<p id="score"></p>
+<div class="card hidden" id="questions">
+<h2>Important Questions</h2>
+<h3>Short Questions</h3>
+<div class="urdu">
+<p>اس باب کے مختصر سوالات اور جوابات یہاں شامل کیے جائیں گے۔</p>
+</div>
+<h3>Long Questions</h3>
+<div class="urdu">
+<p>اس باب کے تفصیلی سوالات اور جوابات یہاں شامل کیے جائیں گے۔</p>
+</div>
+<p class="small">Verified chapter-wise questions will be added here.</p>
 </div>
 
-<div class="card">
-<h2>⭐ Short Questions</h2>
-<div id="questions"></div>
+<div class="card hidden" id="assistant">
+<h2>AI Study Assistant</h2>
+<p>Apna sawal likhein:</p>
+<input id="studentQuestion" placeholder="Write your question here">
+<button onclick="askAssistant()">Submit Question</button>
+<div id="assistantReply"></div>
+<p class="small">Real AI answers require a secure AI connection, which will be added in a later development step.</p>
 </div>
+</section>
 
 </main>
 
+<footer>TALEEM AI | Your Learning Partner</footer>
+
 <script>
-const topics = [
-{
-title:"1. Scope of Physics",
-text:"طبیعیات سائنس کی وہ شاخ ہے جس میں مادہ، توانائی، حرکت اور ان کے درمیان تعلق کا مطالعہ کیا جاتا ہے۔<br><br>مثال: پنکھے کی حرکت، روشنی اور آواز طبیعیات کے موضوعات ہیں۔"
-},
-{
-title:"2. Physical and Non-Physical Quantities",
-text:"طبعی مقدار وہ ہوتی ہے جسے ناپا جا سکے اور عدد کے ساتھ اکائی میں ظاہر کیا جا سکے۔<br><br>مثال: لمبائی، وقت اور کمیت۔<br><br>غیر طبعی مقدار کو عام پیمائشی آلے سے نہیں ناپا جا سکتا۔ مثال: خوبصورتی اور ایمانداری۔"
-},
-{
-title:"3. Base and Derived Quantities",
-text:"بنیادی مقداریں وہ ہیں جو دوسری مقداروں پر منحصر نہیں ہوتیں۔<br><br>مثال: لمبائی، کمیت اور وقت۔<br><br>اخذ شدہ مقداریں بنیادی مقداروں سے حاصل ہوتی ہیں۔<br><br>مثال: رفتار = فاصلہ ÷ وقت۔"
-},
-{
-title:"4. SI Units",
-text:"SI اکائیوں کا عالمی نظام ہے۔<br><br>لمبائی کی اکائی میٹر (m) ہے۔<br>کمیت کی اکائی کلوگرام (kg) ہے۔<br>وقت کی اکائی سیکنڈ (s) ہے۔<br>درجہ حرارت کی اکائی کیلون (K) ہے۔"
-},
-{
-title:"5. Scientific Notation",
-text:"بہت بڑی یا بہت چھوٹی تعداد کو آسان انداز میں لکھنے کے طریقے کو سائنسی انداز کہتے ہیں۔<br><br>مثال: 300000 کو 3 × 10⁵ لکھ سکتے ہیں۔"
-},
-{
-title:"6. Measuring Instruments",
-text:"مختلف مقداریں ناپنے کے لیے مختلف آلات استعمال ہوتے ہیں۔<br><br>لمبائی کے لیے میٹر رول یا ورنیئر کیلپر، کمیت کے لیے ترازو اور وقت کے لیے گھڑی استعمال ہوتی ہے۔"
-},
-{
-title:"7. Significant Figures",
-text:"کسی پیمائش میں وہ ہندسے جو اس کی درستگی ظاہر کرتے ہیں، اہم ہندسے کہلاتے ہیں۔<br><br>مثال: 2.50 میں تین اہم ہندسے ہیں۔"
-},
-{
-title:"8. Precision and Accuracy",
-text:"درستگی (Accuracy) کا مطلب ہے پیمائش کا اصل قدر کے قریب ہونا۔<br><br>یکسانیت (Precision) کا مطلب ہے بار بار کی گئی پیمائشوں کا ایک دوسرے کے قریب ہونا۔"
-}
-];
+const subjects = {
+"English": [],
+"Urdu": [],
+"Mathematics": [],
+"Physics": [
+"Physical Quantities and Measurements",
+"Kinematics",
+"Dynamics",
+"Turning Effects of Force",
+"Work, Energy and Power",
+"Mechanical Properties of Matter",
+"Thermal Properties of Matter",
+"Magnetism",
+"Nature of Science"
+],
+"Chemistry": [
+"States of Matter and Phase Changes",
+"Atomic Structure",
+"Chemical Bonding",
+"Stoichiometry",
+"Energetics",
+"Equilibria",
+"Acid Base Chemistry",
+"Periodic Table and Periodicity",
+"Group Properties and Elements",
+"Environmental Chemistry",
+"Hydrocarbons",
+"Empirical Data Collection and Analysis",
+"Laboratory and Practical Skills"
+],
+"Biology": [],
+"Computer Science": [],
+"Islamiat": [],
+"Tarjuma-tul-Quran": []
+};
 
-const topicButtons=document.getElementById("topicButtons");
+const subjectSelect = document.getElementById("subject");
 
-topics.forEach((topic,index)=>{
-const btn=document.createElement("button");
-btn.className="topic";
-btn.textContent=topic.title;
-btn.onclick=()=>openTopic(index);
-topicButtons.appendChild(btn);
+Object.keys(subjects).forEach(name=>{
+let option=document.createElement("option");
+option.value=name;
+option.textContent=name;
+subjectSelect.appendChild(option);
 });
 
-function openTopic(index){
-document.getElementById("lessonTitle").textContent=topics[index].title;
-document.getElementById("lessonText").innerHTML=topics[index].text;
-document.getElementById("lesson").classList.remove("hidden");
-document.getElementById("lesson").scrollIntoView({behavior:"smooth"});
+let currentSubject="";
+let currentChapter="";
+
+function hideAll(){
+["home","subjectPage","chapterPage"].forEach(id=>{
+document.getElementById(id).classList.add("hidden");
+});
 }
 
-const mcqs=[
-{q:"طبیعیات میں کس چیز کا مطالعہ کیا جاتا ہے؟",o:["صرف پودوں کا","مادہ اور توانائی کا","صرف جانوروں کا","صرف تاریخ کا"],a:1},
-{q:"لمبائی کی SI اکائی کیا ہے؟",o:["کلوگرام","سیکنڈ","میٹر","لیٹر"],a:2},
-{q:"وقت کی بنیادی اکائی کیا ہے؟",o:["منٹ","گھنٹہ","سیکنڈ","دن"],a:2},
-{q:"رفتار کس قسم کی مقدار ہے؟",o:["بنیادی","اخذ شدہ","غیر طبعی","کوئی نہیں"],a:1},
-{q:"کمیت کی SI اکائی کیا ہے؟",o:["میٹر","کلوگرام","سیکنڈ","نیوٹن"],a:1}
-];
+function openSubject(){
+currentSubject=subjectSelect.value;
+document.getElementById("subjectTitle").textContent=currentSubject;
+let list=document.getElementById("chapterList");
+list.innerHTML="";
 
-let current=0;
-let marks=0;
-let answered=false;
+let chapters=subjects[currentSubject];
 
-function showQuestion(){
-const q=mcqs[current];
-answered=false;
-document.getElementById("quiz").innerHTML=
-"<h3>"+(current+1)+". "+q.q+"</h3>"+
-q.o.map((option,i)=>
-'<button class="option" onclick="checkAnswer('+i+')">'+option+'</button>'
-).join("");
+if(chapters.length===0){
+for(let i=1;i<=12;i++){
+let btn=document.createElement("button");
+btn.className="chapter";
+btn.textContent="Chapter "+i+" — Title to be verified from official textbook";
+btn.onclick=()=>openChapter(btn.textContent);
+list.appendChild(btn);
 }
-
-function checkAnswer(choice){
-if(answered)return;
-answered=true;
-const q=mcqs[current];
-if(choice===q.a){
-marks++;
-document.getElementById("score").textContent="درست جواب! نمبر: "+marks;
 }else{
-document.getElementById("score").textContent="صحیح جواب: "+q.o[q.a]+" | نمبر: "+marks;
-}
+chapters.forEach((name,index)=>{
+let btn=document.createElement("button");
+btn.className="chapter";
+btn.textContent="Chapter "+(index+1)+": "+name;
+btn.onclick=()=>openChapter(btn.textContent);
+list.appendChild(btn);
+});
 }
 
-function nextQuestion(){
-current=(current+1)%mcqs.length;
-showQuestion();
+hideAll();
+document.getElementById("subjectPage").classList.remove("hidden");
 }
 
-showQuestion();
+function openChapter(name){
+currentChapter=name;
+document.getElementById("chapterTitle").textContent=name;
+hideAll();
+document.getElementById("chapterPage").classList.remove("hidden");
+showSection("book");
+loadMCQ();
+}
 
-const questions=[
-["طبیعیات کیا ہے؟","طبیعیات سائنس کی وہ شاخ ہے جس میں مادہ، توانائی اور ان کے تعلق کا مطالعہ کیا جاتا ہے۔"],
-["طبعی مقدار کسے کہتے ہیں؟","ایسی مقدار جسے ناپا جا سکے اور عدد اور اکائی میں ظاہر کیا جا سکے۔"],
-["بنیادی مقداریں کیا ہیں؟","وہ مقداریں جو دوسری مقداروں پر منحصر نہیں ہوتیں، بنیادی مقداریں کہلاتی ہیں۔"],
-["SI نظام کیا ہے؟","پیمائش کی بین الاقوامی طور پر تسلیم شدہ اکائیوں کا نظام SI کہلاتا ہے۔"],
-["اخذ شدہ مقدار کی مثال دیں۔","رفتار ایک اخذ شدہ مقدار ہے کیونکہ یہ فاصلے اور وقت سے حاصل ہوتی ہے۔"]
+function showSection(id){
+["book","lesson","mcq","questions","assistant"].forEach(section=>{
+document.getElementById(section).classList.add("hidden");
+});
+document.getElementById(id).classList.remove("hidden");
+}
+
+function goHome(){
+hideAll();
+document.getElementById("home").classList.remove("hidden");
+}
+
+function goSubject(){
+hideAll();
+document.getElementById("subjectPage").classList.remove("hidden");
+}
+
+const physicsMCQs=[
+{
+q:"What is a physical quantity?",
+a:["A quantity that can be measured","A colour","A feeling","A sound"],
+correct:0
+},
+{
+q:"What is the SI unit of length?",
+a:["Kilogram","Metre","Second","Ampere"],
+correct:1
+},
+{
+q:"Which instrument is used to measure time?",
+a:["Stopwatch","Balance","Ruler","Thermometer"],
+correct:0
+}
 ];
 
-document.getElementById("questions").innerHTML=
-questions.map((q,i)=>
-'<details><summary>'+ (i+1)+'. '+q[0]+'</summary><p class="urdu">'+q[1]+'</p></details>'
-).join("<hr>");
+function loadMCQ(){
+let area=document.getElementById("mcqArea");
+area.innerHTML="";
 
+if(currentSubject==="Physics" && currentChapter.includes("Physical Quantities")){
+physicsMCQs.forEach((item,index)=>{
+let div=document.createElement("div");
+div.className="card";
+let html="<p><b>"+(index+1)+". "+item.q+"</b></p>";
+item.a.forEach((answer,i)=>{
+html+='<label><input type="radio" name="q'+index+'" value="'+i+'" style="width:auto">'+answer+'</label><br>';
+});
+div.innerHTML=html;
+area.appendChild(div);
+});
+let check=document.createElement("button");
+check.textContent="Check Answers";
+check.onclick=checkMCQ;
+area.appendChild(check);
+}else{
+area.innerHTML="<p>MCQs for this chapter will be added after the verified lesson content.</p>";
+}
+}
+
+function checkMCQ(){
+let score=0;
+physicsMCQs.forEach((item,index)=>{
+let selected=document.querySelector('input[name="q'+index+'"]:checked');
+if(selected && Number(selected.value)===item.correct) score++;
+});
+document.getElementById("mcqArea").innerHTML=
+"<h3>Your Score: "+score+" / "+physicsMCQs.length+"</h3><p>Practice again to improve your result.</p>";
+}
+
+function askAssistant(){
+let question=document.getElementById("studentQuestion").value.trim();
+let reply=document.getElementById("assistantReply");
+if(!question){
+reply.textContent="Please write a question first.";
+return;
+}
+reply.textContent="Your question has been entered. Real AI answers will work after the secure AI service is connected.";
+}
 </script>
+
 </body>
 </html>
 
